@@ -1,0 +1,37 @@
+{
+  _config+:: {
+    versions+:: {
+      prometheus: 'v2.16.0',
+      alertmanager: 'v0.20.0',
+      kubeStateMetrics: '1.9.5',
+      kubeRbacProxy: 'v0.5.0',
+      addonResizer: '2.3',
+      nodeExporter: 'v0.18.1',
+      prometheusOperator: 'v0.37.0',
+      prometheusAdapter: 'v0.6.0',
+      grafana: '6.6.2',
+      configmapReloader: 'latest',
+      prometheusConfigReloader: 'v0.37.0',
+      armExporter: 'latest',
+      smtpServer: 'v1.0.1',
+      elasticExporter: '1.0.4rc1',
+    },
+
+    imageRepos+:: {
+      prometheus: 'prom/prometheus',
+      alertmanager: 'prom/alertmanager',
+      kubeStateMetrics: 'carlosedp/kube-state-metrics',
+      kubeRbacProxy: 'carlosedp/kube-rbac-proxy',
+      addonResizer: 'carlosedp/addon-resizer',
+      nodeExporter: 'prom/node-exporter',
+      prometheusOperator: 'carlosedp/prometheus-operator',
+      prometheusAdapter: 'carlosedp/k8s-prometheus-adapter',
+      grafana: 'grafana/grafana',
+      configmapReloader: 'carlosedp/configmap-reload',
+      prometheusConfigReloader: 'carlosedp/prometheus-config-reloader',
+      armExporter: 'carlosedp/arm_exporter',
+      smtpServer: 'carlosedp/docker-smtp',
+      elasticExporter: 'carlosedp/elasticsearch-exporter',
+    },
+  },
+}
