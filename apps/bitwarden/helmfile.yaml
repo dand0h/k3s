@@ -1,0 +1,32 @@
+# helm chart source: https://github.com/gjeanmart/bitwarden-k8s
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: bitwarden
+    namespace: bitwarden
+    chart: ./bitwarden-k8s
+    version: 0.1.3
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    secrets:
+      - {{ .Environment.Name }}-secrets.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../../common/namespaces/bitwarden.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "bitwarden-persistentvolume.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "bitwarden-persistentvolumeclaim.yaml"]

@@ -1,0 +1,7 @@
+cloudflare:
+  user: ""
+  token: ""
+  zones: ""
+  hosts: ""
+  record_types: ""
+  sleep_interval: 300

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "media-volume"
+  labels:
+    type: "local"
+spec:
+  storageClassName: "manual"
+  capacity:
+    storage: "500Gi"
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/nfs/media"

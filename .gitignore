@@ -1,0 +1,7 @@
+# helm secrets
+*.yaml.dec
+*secrets.yaml
+
+# certs
+*cert.yaml
+letsencrypt*.yaml

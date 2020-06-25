@@ -1,0 +1,30 @@
+# helm chart source: https://github.com/bananaspliff/geek-charts/tree/gh-pages/jackett
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: jackett
+    namespace: media
+    chart: bananaspliff/jackett
+    version: 0.1.0
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../../common/namespaces/media.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../plex/media-persistentvolume.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../plex/media-persistentvolumeclaim.yaml"]

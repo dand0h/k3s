@@ -1,0 +1,19 @@
+# helm chart source: https://billimek.com/billimek-charts/
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: cloudflare-dyndns
+    namespace: kube-system
+    chart: billimek/cloudflare-dyndns
+    version: 2.0.0
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    secrets:
+      - {{ .Environment.Name }}-secrets.yaml
+    wait: true

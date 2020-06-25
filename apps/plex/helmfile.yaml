@@ -1,0 +1,32 @@
+# helm chart source: https://github.com/munnerz/kube-plex
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: plex
+    namespace: media
+    chart: ./kube-plex/charts/kube-plex
+    version: 0.2.7
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    secrets:
+      - {{ .Environment.Name }}-secrets.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../../common/namespaces/media.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "media-persistentvolume.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "media-persistentvolumeclaim.yaml"]

@@ -1,0 +1,17 @@
+# helm chart source: https://github.com/helm/charts/tree/master/stable/nginx-ingress
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: nginx-ingress
+    namespace: kube-system
+    chart: stable/nginx-ingress
+    version: 1.34.2
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    wait: true

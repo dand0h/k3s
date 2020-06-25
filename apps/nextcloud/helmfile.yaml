@@ -1,0 +1,32 @@
+# helm chart source: https://github.com/gjeanmart/bitwarden-k8s
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: nextcloud
+    namespace: nextcloud
+    chart: stable/nextcloud
+    version: 1.9.2
+    missingFileHandler: Error
+    values:
+      - {{ .Environment.Name }}-values.yaml
+    secrets:
+      - {{ .Environment.Name }}-secrets.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../../common/namespaces/nextcloud.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "nextcloud-persistentvolume.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "nextcloud-persistentvolumeclaim.yaml"]

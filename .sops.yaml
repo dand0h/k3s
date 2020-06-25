@@ -1,0 +1,4 @@
+---
+creation_rules:
+        # Encrypt with PGP
+        - pgp: 'CB7FE25817771A5CF0D3C80548AD93D5170A33CC'

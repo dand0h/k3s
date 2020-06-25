@@ -1,0 +1,9 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com/
+  - name: bananaspliff
+    url: https://bananaspliff.github.io/geek-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: billimek
+    url: https://billimek.com/billimek-charts/

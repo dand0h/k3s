@@ -1,0 +1,26 @@
+# helm chart source: https://github.com/jetstack/cert-manager/tree/master/deploy/charts/cert-manager
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: 0.14.0
+    missingFileHandler: Error
+    # values:
+    #   - {{ .Environment.Name }}-values.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "--validate=false", "-f", "https://raw.githubusercontent.com/jetstack/cert-manager/release-0.14/deploy/manifests/00-crds.yaml"]
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "../../common/namespaces/cert-manager.yaml"]

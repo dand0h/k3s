@@ -1,0 +1,22 @@
+# helm chart source: https://github.com/helm/charts/tree/master/stable/metallb
+
+bases:
+  - ../../common/repositories.yaml
+
+environments:
+  dev:
+
+releases:
+  - name: metallb
+    namespace: kube-system
+    chart: stable/metallb
+    version: 0.12.0
+    missingFileHandler: Error
+    # values:
+    #   - {{ .Environment.Name }}-values.yaml
+    wait: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "kubectl"
+        args: ["apply", "-f", "metallb-configmap.yaml"]
